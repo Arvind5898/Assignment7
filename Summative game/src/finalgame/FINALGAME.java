@@ -56,7 +56,9 @@ public class FINALGAME extends JComponent {
     boolean qPressed;
     // creating a boolean for player 1 to shoot using the m key 
     boolean mPressed;
-    BufferedImage nameTheImageHere = loadImage("image file name here.whatever");
+    BufferedImage space = loadImage("space.png");
+    BufferedImage spaceship = loadImage("spaceship.png");
+    BufferedImage ufo = loadImage("ufo2.png");
     // creating an array for the obstacles in the map 
     Rectangle[] blocks = new Rectangle[6];
     // sets the framerate and delay for our game
@@ -86,6 +88,7 @@ public class FINALGAME extends JComponent {
     
     // creating a font for scoreboard
     Font myfont = new Font("Arial", Font.BOLD, 75);
+    
 
     // GAME VARIABLES END HERE   
     // Constructor to create the Frame and place the panel in
@@ -128,6 +131,10 @@ public class FINALGAME extends JComponent {
         g.setColor(Color.BLACK);
         // filling the background completely black
         g.fillRect(0, 0, 1275, 950);
+        // drawing the image 
+        g.drawImage(space, 0, 0, 1275, 950, null);
+        
+        
 
         // line dividing the map 
         g.setColor(Color.red);
@@ -139,10 +146,10 @@ public class FINALGAME extends JComponent {
             }
         }
 
-        // drawing player one 
-        g.drawRect(player1.x, player1.y, player1.width, player1.height);
-        // drawing player two 
-        g.drawRect(player2.x, player2.y, player2.width, player2.height);
+        // drawing player one as a spaceship
+        g.drawImage(spaceship, player1.x, player1.y, 90, 90, null);
+        // drawing player two as a ufo
+        g.drawImage(ufo, player2.x, player2.y, 90, 35, null);
 
         for (Rectangle bullets : bullet) {
             g.fillRect(bullets.x, bullets.y, bullets.width, bullets.height);
@@ -184,6 +191,7 @@ public class FINALGAME extends JComponent {
         }
         return img;
     }
+    
 
     // This method is used to do any pre-setup you might need to do
     // This is run before the game loop begins!
@@ -260,23 +268,23 @@ public class FINALGAME extends JComponent {
 
             if (mPressed) {
 
-                bullet.add(new Rectangle(player1.x, player1.y - 20, 20, 20));
+                bullet.add(new Rectangle(player1.x + 35, player1.y - 20, 20, 20));
 
                 mPressed = false;
 
             }
             if (qPressed) {
 
-                bullet2.add(new Rectangle(player2.x, player2.y + 20, 20, 20));
+                bullet2.add(new Rectangle(player2.x + 35, player2.y + 35, 20, 20));
 
                 qPressed = false;
             }
 
             for (Rectangle bullets : bullet) {
-                bullets.y -= 5;
+                bullets.y -= 15;
             }
             for (Rectangle bullets : bullet2) {
-                bullets.y += 5;
+                bullets.y += 15;
             }
 
             shooting();
@@ -513,6 +521,8 @@ public class FINALGAME extends JComponent {
         }
     }
     
+   
+    
     
     
 
@@ -535,9 +545,9 @@ public class FINALGAME extends JComponent {
             if(player1.intersects(bullet2.get(i))){
                 player1Score ++;
                 bullet2.remove(i);
-            }
-            
-        }
+            }}
+        
+     
         
         
 //        
